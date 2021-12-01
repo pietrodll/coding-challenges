@@ -1,8 +1,13 @@
 # IDE
 .vscode/
+*.code-workspace
 
 # DS_Store
 .DS_Store
 
 # Drafts
 drafts/
+
+# Environment variables
+.env
+.env.*
