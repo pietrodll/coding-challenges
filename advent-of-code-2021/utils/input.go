@@ -21,7 +21,7 @@ func fetchInput(day int) (string, error) {
 
 	check(err)
 
-	req.Header.Add("cookie", os.Getenv("COOKIE"))
+	req.Header.Add("cookie", fmt.Sprintf("session=%s", os.Getenv("SESSION_ID")))
 
 	resp, err := http.DefaultClient.Do(req)
 
@@ -36,7 +36,7 @@ func fetchInput(day int) (string, error) {
 	bodyStr := strings.Trim(string(body), "\n")
 
 	if resp.StatusCode >= 400 {
-		return "", errors.New(fmt.Sprintf("Received HTTP error %d: %s", resp.StatusCode, bodyStr))
+		return "", fmt.Errorf("received HTTP error %d: %s", resp.StatusCode, bodyStr)
 	}
 
 	return bodyStr, nil
@@ -50,27 +50,27 @@ func readInput(day int) (string, error) {
 		check(err)
 		return string(data), nil
 	} else if errors.Is(err, os.ErrNotExist) {
-		return "", errors.New(fmt.Sprintf("Cannot find input file %s", path))
+		return "", fmt.Errorf("cannot find input file %s", path)
 	} else {
 		panic(err)
 	}
 }
 
 func LoadInput(day int) string {
-	httpData, err := fetchInput(day)
+	fileData, err := readInput(day)
 
 	if err == nil {
-		fmt.Println("Input loaded from HTTP request")
-		return httpData
+		fmt.Println("Input loaded from file")
+		return strings.Trim(fileData, "\n")
 	}
 
 	fmt.Println(err.Error())
-	fmt.Println("Trying to parse input file...")
+	fmt.Println("Trying to fethc input from AOC website...")
 
-	fileData, err := readInput(day)
+	httpData, err := fetchInput(day)
 
 	check(err)
 
-	fmt.Println("Input loaded from file")
-	return strings.Trim(fileData, "\n")
+	fmt.Println("Input loaded from HTTP request")
+	return strings.Trim(httpData, "\n")
 }

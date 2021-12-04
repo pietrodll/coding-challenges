@@ -1,11 +1,9 @@
-package main
+package day1
 
 import (
 	"fmt"
 	"strconv"
 	"strings"
-
-	"github.com/pietrodll/aoc2021/utils"
 )
 
 func parseValues(input string) []int {
@@ -62,8 +60,8 @@ func countIncrease(values []int) int {
 	return count
 }
 
-func main() {
-	values := parseValues(utils.LoadInput(1))
+func Run(input string) {
+	values := parseValues(input)
 	increases := countIncrease(values)
 	groupIncreases := countIncrease(sumBy(values, 3))
 
