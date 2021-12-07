@@ -31,7 +31,7 @@ type StateTracker struct {
 }
 
 func initStateTracker(initialState []int, maxTimer int, resetTo int) StateTracker {
-	countByTimer := make([]int, maxTimer+1, maxTimer+1)
+	countByTimer := make([]int, maxTimer+1)
 
 	for _, val := range initialState {
 		if val > 8 {
