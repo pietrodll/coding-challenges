@@ -3,10 +3,11 @@ package day11
 import (
 	"testing"
 
+	"github.com/pietrodll/aoc2021/utils/grid"
 	"github.com/stretchr/testify/assert"
 )
 
-var grid = [][]int{
+var inputGrid = grid.NewGrid([][]int{
 	{5, 4, 8, 3, 1, 4, 3, 2, 2, 3},
 	{2, 7, 4, 5, 8, 5, 4, 7, 1, 1},
 	{5, 2, 6, 4, 5, 5, 6, 1, 7, 3},
@@ -17,31 +18,44 @@ var grid = [][]int{
 	{6, 8, 8, 2, 8, 8, 1, 1, 3, 4},
 	{4, 8, 4, 6, 8, 4, 8, 5, 5, 4},
 	{5, 2, 8, 3, 7, 5, 1, 5, 2, 6},
-}
+})
 
 func TestNextStepSmallInput(t *testing.T) {
-	// Test with a small input
-
-	steps := [][][]int{
-		{
-			{1, 1, 1, 1, 1}, {1, 9, 9, 9, 1}, {1, 9, 1, 9, 1}, {1, 9, 9, 9, 1}, {1, 1, 1, 1, 1}},
-		{
-			{3, 4, 5, 4, 3}, {4, 0, 0, 0, 4}, {5, 0, 0, 0, 5}, {4, 0, 0, 0, 4}, {3, 4, 5, 4, 3}},
-		{
-			{4, 5, 6, 5, 4}, {5, 1, 1, 1, 5}, {6, 1, 1, 1, 6}, {5, 1, 1, 1, 5}, {4, 5, 6, 5, 4}},
+	steps := []grid.Grid{
+		grid.NewGrid([][]int{
+			{1, 1, 1, 1, 1},
+			{1, 9, 9, 9, 1},
+			{1, 9, 1, 9, 1},
+			{1, 9, 9, 9, 1},
+			{1, 1, 1, 1, 1}},
+		),
+		grid.NewGrid([][]int{
+			{3, 4, 5, 4, 3},
+			{4, 0, 0, 0, 4},
+			{5, 0, 0, 0, 5},
+			{4, 0, 0, 0, 4},
+			{3, 4, 5, 4, 3}},
+		),
+		grid.NewGrid([][]int{
+			{4, 5, 6, 5, 4},
+			{5, 1, 1, 1, 5},
+			{6, 1, 1, 1, 6},
+			{5, 1, 1, 1, 5},
+			{4, 5, 6, 5, 4}},
+		),
 	}
 
 	sim := newOctopusSimulator(steps[0])
 
 	for i, step := range steps {
-		assert.Equalf(t, step, sim.grid, "Not equal at step %d", i)
+		assert.Equalf(t, step, sim.g, "Not equal at step %d", i)
 		sim.nextStep()
 	}
 }
 
 func TestNextStep(t *testing.T) {
-	expectedSteps := [][][]int{
-		{
+	expectedSteps := []grid.Grid{
+		grid.NewGrid([][]int{
 			{6, 5, 9, 4, 2, 5, 4, 3, 3, 4},
 			{3, 8, 5, 6, 9, 6, 5, 8, 2, 2},
 			{6, 3, 7, 5, 6, 6, 7, 2, 8, 4},
@@ -52,8 +66,8 @@ func TestNextStep(t *testing.T) {
 			{7, 9, 9, 3, 9, 9, 2, 2, 4, 5},
 			{5, 9, 5, 7, 9, 5, 9, 6, 6, 5},
 			{6, 3, 9, 4, 8, 6, 2, 6, 3, 7},
-		},
-		{
+		}),
+		grid.NewGrid([][]int{
 			{8, 8, 0, 7, 4, 7, 6, 5, 5, 5},
 			{5, 0, 8, 9, 0, 8, 7, 0, 5, 4},
 			{8, 5, 9, 7, 8, 8, 9, 6, 0, 8},
@@ -64,8 +78,8 @@ func TestNextStep(t *testing.T) {
 			{0, 0, 0, 0, 0, 0, 7, 4, 5, 6},
 			{9, 0, 0, 0, 0, 0, 0, 8, 7, 6},
 			{8, 7, 0, 0, 0, 0, 6, 8, 4, 8},
-		},
-		{
+		}),
+		grid.NewGrid([][]int{
 			{0, 0, 5, 0, 9, 0, 0, 8, 6, 6},
 			{8, 5, 0, 0, 8, 0, 0, 5, 7, 5},
 			{9, 9, 0, 0, 0, 0, 0, 0, 3, 9},
@@ -76,8 +90,8 @@ func TestNextStep(t *testing.T) {
 			{2, 2, 1, 1, 1, 3, 0, 0, 0, 0},
 			{0, 4, 2, 1, 1, 2, 5, 0, 0, 0},
 			{0, 0, 2, 1, 1, 1, 9, 0, 0, 0},
-		},
-		{
+		}),
+		grid.NewGrid([][]int{
 			{2, 2, 6, 3, 0, 3, 1, 9, 7, 7},
 			{0, 9, 2, 3, 0, 3, 1, 6, 9, 7},
 			{0, 0, 3, 2, 2, 2, 1, 1, 5, 0},
@@ -88,8 +102,8 @@ func TestNextStep(t *testing.T) {
 			{5, 5, 3, 2, 2, 4, 1, 1, 2, 2},
 			{1, 5, 3, 2, 2, 4, 7, 2, 1, 1},
 			{1, 1, 3, 2, 2, 3, 0, 2, 1, 1},
-		},
-		{
+		}),
+		grid.NewGrid([][]int{
 			{4, 4, 8, 4, 1, 4, 4, 0, 0, 0},
 			{2, 0, 4, 4, 1, 4, 4, 0, 0, 0},
 			{2, 2, 5, 3, 3, 3, 3, 4, 9, 3},
@@ -100,19 +114,19 @@ func TestNextStep(t *testing.T) {
 			{6, 6, 4, 3, 3, 5, 2, 2, 3, 3},
 			{2, 6, 4, 3, 3, 5, 8, 3, 2, 2},
 			{2, 2, 4, 3, 3, 4, 1, 3, 2, 2},
-		},
+		}),
 	}
 
-	sim := newOctopusSimulator(grid)
+	sim := newOctopusSimulator(inputGrid)
 
 	for i, expected := range expectedSteps {
 		sim.nextStep()
-		assert.Equalf(t, expected, sim.grid, "Not equal at step %d", i+1)
+		assert.Equalf(t, expected, sim.g, "Not equal at step %d", i+1)
 	}
 }
 
 func TestComputeUntilSynchronized(t *testing.T) {
-	sim := newOctopusSimulator(grid)
+	sim := newOctopusSimulator(inputGrid)
 
 	assert.Equal(t, 195, sim.computeUntilSynchronized())
 }

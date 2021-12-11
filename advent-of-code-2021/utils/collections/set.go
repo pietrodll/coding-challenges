@@ -1,6 +1,10 @@
 package collections
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/pietrodll/aoc2021/utils/base"
+)
 
 type IntSet struct {
 	container map[int]bool
@@ -57,4 +61,43 @@ func NewIntSet(elements ...int) IntSet {
 	}
 
 	return IntSet{container}
+}
+
+type CodableSet struct {
+	s     IntSet
+	coder base.Coder
+}
+
+func (s *CodableSet) Len() int {
+	return s.s.Len()
+}
+
+func (s *CodableSet) IsEmpty() bool {
+	return s.s.IsEmpty()
+}
+
+func (s *CodableSet) Add(element base.Codable) {
+	s.s.Add(s.coder.Encode(element))
+}
+
+func (s *CodableSet) Contains(element base.Codable) bool {
+	return s.s.Contains(s.coder.Encode(element))
+}
+
+func (s *CodableSet) Pop() base.Codable {
+	return s.coder.Decode(s.s.Pop())
+}
+
+func (s *CodableSet) Remove(element base.Codable) {
+	s.s.Remove(s.coder.Encode(element))
+}
+
+func NewCodableSet(coder base.Coder, elements ...base.Codable) CodableSet {
+	s := NewIntSet()
+
+	for _, element := range elements {
+		s.Add(coder.Encode(element))
+	}
+
+	return CodableSet{s, coder}
 }

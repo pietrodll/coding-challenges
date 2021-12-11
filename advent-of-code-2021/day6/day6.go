@@ -2,26 +2,12 @@ package day6
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
+
+	"github.com/pietrodll/aoc2021/utils/parse"
 )
 
 func parseInput(input string) []int {
-	strValues := strings.Split(input, ",")
-
-	values := make([]int, len(strValues))
-
-	for i, strVal := range strValues {
-		val, err := strconv.Atoi(strVal)
-
-		if err != nil {
-			panic(err)
-		}
-
-		values[i] = val
-	}
-
-	return values
+	return parse.ParseIntegers(input, ",")
 }
 
 type StateTracker struct {
@@ -34,7 +20,7 @@ func initStateTracker(initialState []int, maxTimer int, resetTo int) StateTracke
 	countByTimer := make([]int, maxTimer+1)
 
 	for _, val := range initialState {
-		if val > 8 {
+		if val > maxTimer {
 			panic(fmt.Errorf("lanternfish timer cannot be %d", val))
 		}
 

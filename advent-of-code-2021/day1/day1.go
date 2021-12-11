@@ -2,26 +2,12 @@ package day1
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
+
+	"github.com/pietrodll/aoc2021/utils/parse"
 )
 
 func parseValues(input string) []int {
-	values := strings.Split(input, "\n")
-
-	result := make([]int, len(values))
-
-	for i, val := range values {
-		intVal, err := strconv.Atoi(val)
-
-		if err != nil {
-			panic(err)
-		}
-
-		result[i] = intVal
-	}
-
-	return result
+	return parse.ParseIntegers(input, "\n")
 }
 
 func sumBy(values []int, groupSize int) []int {

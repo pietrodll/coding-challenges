@@ -4,25 +4,12 @@ import (
 	"fmt"
 	"math"
 	"sort"
-	"strconv"
-	"strings"
+
+	"github.com/pietrodll/aoc2021/utils/parse"
 )
 
 func parseInput(input string) []int {
-	positionsStr := strings.Split(input, ",")
-	positions := make([]int, len(positionsStr))
-
-	for i, valStr := range positionsStr {
-		val, err := strconv.Atoi(valStr)
-
-		if err != nil {
-			panic(err)
-		}
-
-		positions[i] = val
-	}
-
-	return positions
+	return parse.ParseIntegers(input, ",")
 }
 
 func findMinimumManhattanDistancePoint(positions []int) int {

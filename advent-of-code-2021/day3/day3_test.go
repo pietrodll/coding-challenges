@@ -69,4 +69,5 @@ func TestGetLifeSupportRating(t *testing.T) {
 
 	assert.Equal(t, 23, findOxygen(values, bitNum))
 	assert.Equal(t, 10, findCo2(values, bitNum))
+	assert.Equal(t, 230, getLifeSupportRating(values, bitNum))
 }

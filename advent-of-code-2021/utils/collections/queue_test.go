@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestIntQueue(t *testing.T) {
-	q := NewIntQueue()
+func TestQueue(t *testing.T) {
+	q := NewQueue()
 
 	assert.Nil(t, q.head)
 	assert.Nil(t, q.tail)
@@ -41,4 +41,16 @@ func TestIntQueue(t *testing.T) {
 	assert.Panics(t, func() {
 		q.Dequeue()
 	})
+
+	q = NewQueue(42)
+	assert.Equal(t, 42, q.head.value)
+}
+
+func TestIntQueue(t *testing.T) {
+	q := NewIntQueue(42)
+
+	assert.Equal(t, q.q.head.value, 42)
+
+	assert.Equal(t, 42, q.Dequeue())
+	assert.True(t, q.IsEmpty())
 }

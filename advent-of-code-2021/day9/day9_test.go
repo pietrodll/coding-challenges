@@ -3,6 +3,7 @@ package day9
 import (
 	"testing"
 
+	"github.com/pietrodll/aoc2021/utils/grid"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -13,35 +14,37 @@ var input = `2199943210
 9899965678`
 
 func TestParseInput(t *testing.T) {
-	expected := Grid{
+	expected := grid.NewGrid(
 		[][]int{{2, 1, 9, 9, 9, 4, 3, 2, 1, 0},
 			{3, 9, 8, 7, 8, 9, 4, 9, 2, 1},
 			{9, 8, 5, 6, 7, 8, 9, 8, 9, 2},
 			{8, 7, 6, 7, 8, 9, 6, 7, 8, 9},
-			{9, 8, 9, 9, 9, 6, 5, 6, 7, 8}},
-		5,
-		10,
-	}
+			{9, 8, 9, 9, 9, 6, 5, 6, 7, 8}})
 
 	assert.Equal(t, expected, parseInput(input))
 }
 
 func TestFindLowPoints(t *testing.T) {
-	grid := parseInput(input)
-	expected := []GridPoint{{0, 1}, {0, 9}, {2, 2}, {4, 6}}
+	g := parseInput(input)
+	expected := []grid.GridPoint{{I: 0, J: 1}, {I: 0, J: 9}, {I: 2, J: 2}, {I: 4, J: 6}}
 
-	assert.Equal(t, expected, grid.findLowPoints())
-	assert.Equal(t, 15, grid.totalRiskLevel())
+	assert.Equal(t, expected, findLowPoints(&g))
+	assert.Equal(t, 15, totalRiskLevel(&g))
 }
 
 func TestFindBasins(t *testing.T) {
-	grid := parseInput(input)
-	basins := grid.findBasins()
+	g := parseInput(input)
+	basins := findBasins(&g)
 
 	assert.Len(t, basins, 4)
 
-	assert.ElementsMatch(t, []GridPoint{{0, 0}, {1, 0}, {0, 1}}, basins[0])
-	assert.ElementsMatch(t, []GridPoint{{0, 9}, {0, 8}, {0, 7}, {0, 6}, {0, 5}, {1, 9}, {2, 9}, {1, 8}, {1, 6}}, basins[1])
-	assert.ElementsMatch(t, []GridPoint{{1, 2}, {1, 3}, {1, 4}, {2, 1}, {2, 2}, {2, 3}, {2, 4}, {2, 5}, {3, 0}, {3, 1}, {3, 2}, {3, 3}, {3, 4}, {4, 1}}, basins[2])
-	assert.ElementsMatch(t, []GridPoint{{2, 7}, {3, 6}, {3, 7}, {3, 8}, {4, 5}, {4, 6}, {4, 7}, {4, 8}, {4, 9}}, basins[3])
+	assert.ElementsMatch(t, []grid.GridPoint{{I: 0, J: 0}, {I: 1, J: 0}, {I: 0, J: 1}}, basins[0])
+	assert.ElementsMatch(t, []grid.GridPoint{{I: 0, J: 9}, {I: 0, J: 8}, {I: 0, J: 7}, {I: 0, J: 6}, {I: 0, J: 5}, {I: 1, J: 9}, {I: 2, J: 9}, {I: 1, J: 8}, {I: 1, J: 6}}, basins[1])
+	assert.ElementsMatch(t, []grid.GridPoint{{I: 1, J: 2}, {I: 1, J: 3}, {I: 1, J: 4}, {I: 2, J: 1}, {I: 2, J: 2}, {I: 2, J: 3}, {I: 2, J: 4}, {I: 2, J: 5}, {I: 3, J: 0}, {I: 3, J: 1}, {I: 3, J: 2}, {I: 3, J: 3}, {I: 3, J: 4}, {I: 4, J: 1}}, basins[2])
+	assert.ElementsMatch(t, []grid.GridPoint{{I: 2, J: 7}, {I: 3, J: 6}, {I: 3, J: 7}, {I: 3, J: 8}, {I: 4, J: 5}, {I: 4, J: 6}, {I: 4, J: 7}, {I: 4, J: 8}, {I: 4, J: 9}}, basins[3])
+}
+
+func TestFindAndMultiplyThreeLargestBasins(t *testing.T) {
+	g := parseInput(input)
+	assert.Equal(t, 1134, findAndMultiplyThreeLargestBasins(&g))
 }

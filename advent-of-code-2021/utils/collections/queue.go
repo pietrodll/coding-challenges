@@ -4,39 +4,33 @@ import (
 	"errors"
 )
 
-type intLinkedElement struct {
-	value int
-	next  *intLinkedElement
+type linkedElement struct {
+	value interface{}
+	next  *linkedElement
 }
 
-type Queue interface {
-	IsEmpty() bool
-	Enqueue(element interface{})
-	Dequeue() interface{}
+type Queue struct {
+	head *linkedElement
+	tail *linkedElement
 }
 
-type IntQueue struct {
-	head *intLinkedElement
-	tail *intLinkedElement
-}
-
-func (q *IntQueue) IsEmpty() bool {
+func (q *Queue) IsEmpty() bool {
 	return q.head == nil
 }
 
-func (q *IntQueue) Enqueue(element int) {
-	new_element := intLinkedElement{element, nil}
+func (q *Queue) Enqueue(element interface{}) {
+	newElement := linkedElement{element, nil}
 
 	if q.IsEmpty() {
-		q.head = &new_element
-		q.tail = &new_element
+		q.head = &newElement
+		q.tail = &newElement
 	} else {
-		q.tail.next = &new_element
-		q.tail = &new_element
+		q.tail.next = &newElement
+		q.tail = &newElement
 	}
 }
 
-func (q *IntQueue) Dequeue() int {
+func (q *Queue) Dequeue() interface{} {
 	if q.IsEmpty() {
 		panic(errors.New("queue is empty, cannot dequeue"))
 	}
@@ -47,11 +41,37 @@ func (q *IntQueue) Dequeue() int {
 	return head.value
 }
 
-func NewIntQueue(elements ...int) IntQueue {
-	q := IntQueue{nil, nil}
+func NewQueue(elements ...interface{}) Queue {
+	q := Queue{nil, nil}
 
 	for _, elem := range elements {
 		q.Enqueue(elem)
+	}
+
+	return q
+}
+
+type IntQueue struct {
+	q Queue
+}
+
+func (q *IntQueue) IsEmpty() bool {
+	return q.q.IsEmpty()
+}
+
+func (q *IntQueue) Enqueue(element int) {
+	q.q.Enqueue(element)
+}
+
+func (q *IntQueue) Dequeue() int {
+	return q.q.Dequeue().(int)
+}
+
+func NewIntQueue(elements ...int) IntQueue {
+	q := IntQueue{NewQueue()}
+
+	for _, element := range elements {
+		q.Enqueue(element)
 	}
 
 	return q

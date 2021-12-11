@@ -63,3 +63,11 @@ func TestCompleteLine(t *testing.T) {
 		}
 	}
 }
+
+func TestSyntaxErrorScore(t *testing.T) {
+	assert.Equal(t, 26397, computeSyntaxErrorScore(lines))
+}
+
+func TestCompletionScore(t *testing.T) {
+	assert.Equal(t, 288957, computeCompletionScore(lines))
+}

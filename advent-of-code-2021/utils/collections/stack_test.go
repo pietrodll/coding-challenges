@@ -7,7 +7,7 @@ import (
 )
 
 func TestStack(t *testing.T) {
-	s := NewIntStack()
+	s := NewStack()
 
 	assert.Nil(t, s.top)
 
@@ -22,4 +22,20 @@ func TestStack(t *testing.T) {
 	assert.Equal(t, 2, val)
 	assert.Equal(t, 1, s.top.value)
 	assert.Nil(t, s.top.next)
+
+	s = NewStack(1, 2)
+	assert.Equal(t, 2, s.Pop())
+	assert.Equal(t, 1, s.Pop())
+	assert.PanicsWithError(t, "stack is empty, cannot pop", func() {
+		s.Pop()
+	})
+}
+
+func TestIntStack(t *testing.T) {
+	s := NewIntStack(42)
+
+	assert.Equal(t, s.s.top.value, 42)
+
+	assert.Equal(t, 42, s.Pop())
+	assert.True(t, s.IsEmpty())
 }
