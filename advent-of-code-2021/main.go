@@ -4,6 +4,7 @@ import (
 	"github.com/pietrodll/aoc2021/day1"
 	"github.com/pietrodll/aoc2021/day10"
 	"github.com/pietrodll/aoc2021/day11"
+	"github.com/pietrodll/aoc2021/day12"
 	"github.com/pietrodll/aoc2021/day2"
 	"github.com/pietrodll/aoc2021/day3"
 	"github.com/pietrodll/aoc2021/day4"
@@ -27,4 +28,5 @@ func main() {
 	utils.RunDay(day9.Run, 9)
 	utils.RunDay(day10.Run, 10)
 	utils.RunDay(day11.Run, 11)
+	utils.RunDay(day12.Run, 12)
 }

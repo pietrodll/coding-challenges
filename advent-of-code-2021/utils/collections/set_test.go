@@ -32,6 +32,7 @@ func TestIntSet(t *testing.T) {
 		s.Remove(2)
 	})
 
+	assert.ElementsMatch(t, []int{0, 1}, s.ToArray())
 	assert.Contains(t, []int{0, 1}, s.Pop())
 	assert.Contains(t, []int{0, 1}, s.Pop())
 
@@ -83,6 +84,43 @@ func TestCodableSet(t *testing.T) {
 	assert.True(t, s.Contains(Point{1, 1}))
 
 	s.Add(Point{5, 6})
+	assert.ElementsMatch(t, []Point{{1, 1}, {5, 6}}, s.ToArray())
 	s.Remove(Point{5, 6})
 	assert.Equal(t, Point{1, 1}, s.Pop())
+}
+
+func TestStringSet(t *testing.T) {
+	s := NewStringSet()
+
+	assert.True(t, s.IsEmpty())
+	assert.Equal(t, 0, s.Len())
+	assert.False(t, s.Contains("a"))
+
+	s = NewStringSet("a")
+	assert.False(t, s.IsEmpty())
+	assert.Equal(t, 1, s.Len())
+	assert.True(t, s.Contains("a"))
+
+	s.Add("b")
+	assert.Equal(t, 2, s.Len())
+
+	s.Add("c")
+	assert.True(t, s.Contains("c"))
+
+	s.Remove("c")
+	assert.False(t, s.Contains("c"))
+	assert.PanicsWithError(t, "element not in set, cannot remove", func() {
+		s.Remove("c")
+	})
+
+	assert.ElementsMatch(t, []string{"a", "b"}, s.ToArray())
+
+	assert.Contains(t, []string{"a", "b"}, s.Pop())
+	assert.Contains(t, []string{"a", "b"}, s.Pop())
+
+	assert.Equal(t, 0, s.Len())
+
+	assert.PanicsWithError(t, "set is empty, cannot pop", func() {
+		s.Pop()
+	})
 }
