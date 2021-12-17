@@ -1,6 +1,9 @@
 package main
 
 import (
+	"flag"
+	"fmt"
+
 	"github.com/pietrodll/aoc2021/day1"
 	"github.com/pietrodll/aoc2021/day10"
 	"github.com/pietrodll/aoc2021/day11"
@@ -8,6 +11,7 @@ import (
 	"github.com/pietrodll/aoc2021/day13"
 	"github.com/pietrodll/aoc2021/day14"
 	"github.com/pietrodll/aoc2021/day15"
+	"github.com/pietrodll/aoc2021/day16"
 	"github.com/pietrodll/aoc2021/day2"
 	"github.com/pietrodll/aoc2021/day3"
 	"github.com/pietrodll/aoc2021/day4"
@@ -19,20 +23,36 @@ import (
 	"github.com/pietrodll/aoc2021/utils"
 )
 
+var runnables = []func(string){
+	day1.Run,
+	day2.Run,
+	day3.Run,
+	day4.Run,
+	day5.Run,
+	day6.Run,
+	day7.Run,
+	day8.Run,
+	day9.Run,
+	day10.Run,
+	day11.Run,
+	day12.Run,
+	day13.Run,
+	day14.Run,
+	day15.Run,
+	day16.Run,
+}
+
 func main() {
-	utils.RunDay(day1.Run, 1)
-	utils.RunDay(day2.Run, 2)
-	utils.RunDay(day3.Run, 3)
-	utils.RunDay(day4.Run, 4)
-	utils.RunDay(day5.Run, 5)
-	utils.RunDay(day6.Run, 6)
-	utils.RunDay(day7.Run, 7)
-	utils.RunDay(day8.Run, 8)
-	utils.RunDay(day9.Run, 9)
-	utils.RunDay(day10.Run, 10)
-	utils.RunDay(day11.Run, 11)
-	utils.RunDay(day12.Run, 12)
-	utils.RunDay(day13.Run, 13)
-	utils.RunDay(day14.Run, 14)
-	utils.RunDay(day15.Run, 15)
+	dayPtr := flag.Int("day", 0, "the day to run. If not provided or equal to zero, all days are run")
+	flag.Parse()
+
+	if *dayPtr == 0 {
+		for dayIndex, runFunc := range runnables {
+			utils.RunDay(runFunc, dayIndex+1)
+		}
+	} else if *dayPtr <= len(runnables) {
+		utils.RunDay(runnables[*dayPtr-1], *dayPtr)
+	} else {
+		panic(fmt.Errorf("invalid day: %d", *dayPtr))
+	}
 }
