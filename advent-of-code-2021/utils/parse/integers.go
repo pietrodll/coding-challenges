@@ -5,8 +5,7 @@ import (
 	"strings"
 )
 
-func ParseIntegers(data string, sep string) []int {
-	strValues := strings.Split(data, sep)
+func StringsToIntegers(strValues []string) []int {
 	values := make([]int, len(strValues))
 
 	for i, strVal := range strValues {
@@ -18,4 +17,8 @@ func ParseIntegers(data string, sep string) []int {
 	}
 
 	return values
+}
+
+func ParseIntegers(data string, sep string) []int {
+	return StringsToIntegers(strings.Split(data, sep))
 }

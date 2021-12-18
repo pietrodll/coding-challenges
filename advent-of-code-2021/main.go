@@ -12,6 +12,7 @@ import (
 	"github.com/pietrodll/aoc2021/day14"
 	"github.com/pietrodll/aoc2021/day15"
 	"github.com/pietrodll/aoc2021/day16"
+	"github.com/pietrodll/aoc2021/day17"
 	"github.com/pietrodll/aoc2021/day2"
 	"github.com/pietrodll/aoc2021/day3"
 	"github.com/pietrodll/aoc2021/day4"
@@ -40,6 +41,7 @@ var runnables = []func(string){
 	day14.Run,
 	day15.Run,
 	day16.Run,
+	day17.Run,
 }
 
 func main() {
