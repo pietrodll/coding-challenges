@@ -14,7 +14,14 @@ import (
 	"github.com/pietrodll/aoc2021/day16"
 	"github.com/pietrodll/aoc2021/day17"
 	"github.com/pietrodll/aoc2021/day18"
+	"github.com/pietrodll/aoc2021/day19"
 	"github.com/pietrodll/aoc2021/day2"
+	"github.com/pietrodll/aoc2021/day20"
+	"github.com/pietrodll/aoc2021/day21"
+	"github.com/pietrodll/aoc2021/day22"
+	"github.com/pietrodll/aoc2021/day23"
+	"github.com/pietrodll/aoc2021/day24"
+	"github.com/pietrodll/aoc2021/day25"
 	"github.com/pietrodll/aoc2021/day3"
 	"github.com/pietrodll/aoc2021/day4"
 	"github.com/pietrodll/aoc2021/day5"
@@ -44,6 +51,13 @@ var runnables = []func(string){
 	day16.Run,
 	day17.Run,
 	day18.Run,
+	day19.Run,
+	day20.Run,
+	day21.Run,
+	day22.Run,
+	day23.Run,
+	day24.Run,
+	day25.Run,
 }
 
 func main() {
