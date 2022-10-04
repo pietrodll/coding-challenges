@@ -24,14 +24,14 @@ from math import sqrt
 
 
 def is_triangle_num(x):
-    root = sqrt(1 + 8*x)
+    root = sqrt(1 + 8 * x)
 
     return int(root) == root and root % 2 == 1
 
 
 def word_value(word):
     word = word.upper()
-    return sum(ord(c) - ord('A') + 1 for c in word)
+    return sum(ord(c) - ord("A") + 1 for c in word)
 
 
 def is_triangle_word(word: str):
@@ -40,7 +40,7 @@ def is_triangle_word(word: str):
 
 def read_words(filename):
     with open(filename) as word_file:
-        words_with_quotes = word_file.read().split(',')
+        words_with_quotes = word_file.read().split(",")
         return [word[1:-1] for word in words_with_quotes]
 
 
@@ -50,7 +50,7 @@ def count_triangle_words(filename):
     return sum(map(is_triangle_word, words))
 
 
-if __name__ == "__main__":
+def main():
     assert is_triangle_num(36) and is_triangle_num(55)
 
-    print(count_triangle_words('data/p042_words.txt'))
+    print(count_triangle_words("data/p042_words.txt"))

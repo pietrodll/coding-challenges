@@ -43,5 +43,5 @@ def count_possible_combinations(amount, coins):
     return len(comb)
 
 
-if __name__ == "__main__":
+def main():
     print(count_possible_combinations(200, [1, 2, 5, 10, 20, 50, 100, 200]))

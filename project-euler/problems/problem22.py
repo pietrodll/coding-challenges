@@ -16,9 +16,9 @@ What is the total of all the name scores in the file?
 
 
 def import_data(filename):
-    with open(filename, 'r') as name_file:
+    with open(filename, "r") as name_file:
         raw_list = name_file.read()
-        name_list = [name[1:-1] for name in raw_list.split(',')]
+        name_list = [name[1:-1] for name in raw_list.split(",")]
         return name_list
 
 
@@ -26,7 +26,7 @@ def name_score(name):
     score = 0
 
     for letter in name:
-        score += ord(letter) - ord('A') + 1
+        score += ord(letter) - ord("A") + 1
 
     return score
 
@@ -40,11 +40,7 @@ def compute_list_score(name_list):
     return score
 
 
-def run():
-    name_list = import_data('data/p022_names.txt')
+def main():
+    name_list = import_data("data/p022_names.txt")
     score = compute_list_score(name_list)
     print(score)
-
-
-if __name__ == "__main__":
-    run()

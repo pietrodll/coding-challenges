@@ -16,9 +16,10 @@ It can be verified that the sum of the numbers on the diagonals is 101.
 What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral formed in the same way?
 """
 
+
 def diagonals(size):
     if size % 2 == 0:
-        raise ValueError(f'The size of the spiral cannot be even! {size} was given.')
+        raise ValueError(f"The size of the spiral cannot be even! {size} was given.")
 
     down = [1]
     up = [1]
@@ -33,7 +34,7 @@ def diagonals(size):
 
 def diagonals_sum(size):
     if size % 2 == 0:
-        raise ValueError(f'The size of the spiral cannot be even! {size} was given.')
+        raise ValueError(f"The size of the spiral cannot be even! {size} was given.")
 
     elem = 1
     S = 1
@@ -54,7 +55,7 @@ def test():
     assert S == 101
 
 
-if __name__ == "__main__":
+def main():
     test()
 
     print(diagonals_sum(1001))

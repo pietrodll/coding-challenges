@@ -15,6 +15,7 @@ It can be seen that there are 21 elements in this set.
 How many elements would be contained in the set of reduced proper fractions for d ≤ 1,000,000?
 """
 
+
 def hcf(a, b):
     """Computes the highest common factor of two numbers"""
 
@@ -32,8 +33,8 @@ def count_fractions(N):
     """Computes the number of reduced proper fractions with a denominator less or equal than N"""
 
     num = 0
-    for d in range(1, N+1):
-        print(d, end='\r')
+    for d in range(1, N + 1):
+        print(d, end="\r")
         for n in range(1, d):
             if hcf(n, d) == 1:
                 num += 1
@@ -41,10 +42,10 @@ def count_fractions(N):
 
 
 def test():
-    print('hcf(10, 8) =', hcf(10, 8))
-    print('hcf(25, 15) =', hcf(25, 15))
-    print('hcf(25, 12) =', hcf(25, 12))
-    print('count_fractions(8) =', count_fractions(8))
+    print("hcf(10, 8) =", hcf(10, 8))
+    print("hcf(25, 15) =", hcf(25, 15))
+    print("hcf(25, 12) =", hcf(25, 12))
+    print("count_fractions(8) =", count_fractions(8))
 
 
 def main():

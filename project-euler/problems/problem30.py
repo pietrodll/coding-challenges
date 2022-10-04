@@ -43,7 +43,7 @@ def find_digit_power_sum(pw):
     return sums
 
 
-if __name__ == "__main__":
+def main():
     assert is_digit_power_sum(1634, 4) is True
     assert is_digit_power_sum(8208, 4) is True
     assert is_digit_power_sum(9474, 4) is True

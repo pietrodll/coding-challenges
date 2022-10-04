@@ -26,6 +26,7 @@ What is the index of the first term in the Fibonacci sequence to contain 1000 di
 
 from math import log10
 
+
 def fib_gen(limit):
     a, b = 0, 1
     for _ in range(limit):
@@ -33,11 +34,8 @@ def fib_gen(limit):
         a, b = b, a + b
 
 
-def run():
+def main():
     for i, value in enumerate(fib_gen(6000)):
         if log10(value) >= 999:
             print(i + 1)
             return
-
-if __name__ == '__main__':
-    run()

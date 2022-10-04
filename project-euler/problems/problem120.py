@@ -16,6 +16,7 @@ For 3 ≤ a ≤ 1000, find ∑ rmax.
 (a-1)^n + (a+1)^n = 1 + (-1)^n + n a (1 - (-1)^n) [mod a²]
 """
 
+
 def compute_r(a, n):
     if n % 2 == 0:
         return 2 % (a * a)
@@ -44,8 +45,8 @@ def sum_rmax(low, up):
     return tot
 
 
-if __name__ == "__main__":
-    print('a = 7, n = 3, r =', compute_r(7, 3))
+def main():
+    print("a = 7, n = 3, r =", compute_r(7, 3))
     print(compute_rmax(7))
 
     print(sum_rmax(3, 1000))

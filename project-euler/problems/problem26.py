@@ -58,5 +58,5 @@ def max_cycle_length(upper_limit):
     return nmax, lmax
 
 
-if __name__ == "__main__":
+def main():
     print(max_cycle_length(1000))

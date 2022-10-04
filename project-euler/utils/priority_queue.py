@@ -1,25 +1,26 @@
 """Module containing an implementation of a priority queue"""
 
+
 def _parent(i):
     return (i - 1) // 2
 
+
 def _right_child(i):
-    return 2*i + 2
+    return 2 * i + 2
+
 
 def _left_child(i):
-    return 2*i + 1
+    return 2 * i + 1
 
 
-class PriorityQueue():
+class PriorityQueue:
     """This class represents a priority queue"""
 
     def __init__(self):
         self.items = []
 
-
     def __len__(self):
         return len(self.items)
-
 
     def __iter__(self):
         return iter(self.items)
@@ -27,18 +28,15 @@ class PriorityQueue():
     def __contains__(self, key):
         return key in self.items
 
-
     def empty(self):
         return self.items == []
-
 
     def insert(self, k):
         self.items.append(k)
         self._percolate_up()
 
-
     def pop(self):
-        self._swap(0, len(self.items)-1)
+        self._swap(0, len(self.items) - 1)
         value = self.items.pop()
         self._percolate_down()
         return value
@@ -46,16 +44,13 @@ class PriorityQueue():
     def get_min(self):
         return self.items[0]
 
-
     def _percolate_up(self):
         i = len(self.items) - 1
         while _parent(i) >= 0 and self.items[i] < self.items[_parent(i)]:
             self._swap(i, _parent(i))
 
-
     def _swap(self, i, j):
         self.items[i], self.items[j] = self.items[j], self.items[i]
-
 
     def _min_child(self, i):
         if _right_child(i) >= len(self.items):
@@ -63,7 +58,6 @@ class PriorityQueue():
         if self.items[_right_child(i)] < self.items[_left_child(i)]:
             return _right_child(i)
         return _left_child(i)
-
 
     def _percolate_down(self):
         i = 0

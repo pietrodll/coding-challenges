@@ -73,6 +73,6 @@ def check_primes(N):
         assert prime_list[i] == prime_list_bis[i]
 
 
-if __name__ == "__main__":
+def main():
     check_primes(1000)
     print(longest_prime_sum(1000000))

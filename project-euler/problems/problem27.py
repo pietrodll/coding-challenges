@@ -71,5 +71,5 @@ def find_best_coeff_product(amax, bmax):
     return a * b
 
 
-if __name__ == "__main__":
+def main():
     print(find_best_coeff_product(1000, 1000))

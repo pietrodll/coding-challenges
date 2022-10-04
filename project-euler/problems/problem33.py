@@ -15,6 +15,7 @@ If the product of these four fractions is given in its lowest common terms, find
 denominator.
 """
 
+
 def gcd(a, b):
     while b != 0:
         a, b = b, a % b
@@ -31,22 +32,22 @@ def main():
         for den in range(1, 10):
             for num in range(1, den):
                 if (10 * common + num) * den == num * (10 * common + den):
-                    fractions.append(f'{10 * common + num}/{10 * common + den}')
+                    fractions.append(f"{10 * common + num}/{10 * common + den}")
                     den_prod *= 10 * common + den
                     num_prod *= 10 * common + num
 
                 elif (10 * num + common) * den == num * (10 * common + den):
-                    fractions.append(f'{10 * num + common}/{10 * common + den}')
+                    fractions.append(f"{10 * num + common}/{10 * common + den}")
                     den_prod *= 10 * common + den
                     num_prod *= 10 * num + common
 
                 elif (10 * common + num) * den == num * (10 * den + common):
-                    fractions.append(f'{10 * common + num}/{10 * den + common}')
+                    fractions.append(f"{10 * common + num}/{10 * den + common}")
                     den_prod *= 10 * den + common
                     num_prod *= 10 * common + num
 
                 elif (10 * num + common) * den == num * (10 * den + common):
-                    fractions.append(f'{10 * num + common}/{10 * den + common}')
+                    fractions.append(f"{10 * num + common}/{10 * den + common}")
                     den_prod *= 10 * den + common
                     num_prod *= 10 * num + common
 
@@ -54,7 +55,3 @@ def main():
 
     print(result)
     print(fractions)
-
-
-if __name__ == "__main__":
-    main()

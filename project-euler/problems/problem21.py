@@ -5,6 +5,7 @@ Problem 21
 
 from math import sqrt
 
+
 def divisor_sum(n):
     S = 1
     for d in range(2, int(sqrt(n))):
@@ -12,6 +13,7 @@ def divisor_sum(n):
             S += d
             S += n // d
     return S
+
 
 def divisor_sum_list(N):
     L = [0, 1]
@@ -25,8 +27,6 @@ def is_amicable(n):
     b = divisor_sum(a)
     return n != a and n == b
 
-print(is_amicable(220))
-print(is_amicable(284))
 
 def amicale_sum(N):
     S = 0
@@ -35,4 +35,9 @@ def amicale_sum(N):
             S += i
     return S
 
-print(amicale_sum(10000))
+
+def main():
+    print(is_amicable(220))
+    print(is_amicable(284))
+
+    print(amicale_sum(10000))

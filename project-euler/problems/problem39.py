@@ -11,6 +11,7 @@ are exactly three solutions for p = 120.
 For which value of p ≤ 1000, is the number of solutions maximised?
 """
 
+
 def indexmax(L):
     imax = 0
     m = L[0]
@@ -38,7 +39,3 @@ def main():
                     solutions[p] += 1
 
     print(indexmax(solutions))
-
-
-if __name__ == "__main__":
-    main()

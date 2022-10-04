@@ -25,10 +25,10 @@ tri = """75
 
 def load_from_string(string):
     L = []
-    lines = string.split('\n')
+    lines = string.split("\n")
 
     for line in lines:
-        L += [int(num) for num in line.split(' ')]
+        L += [int(num) for num in line.split(" ")]
 
     return L
 
@@ -38,7 +38,3 @@ def main():
     M = max_paths(L)
     print(M)
     print(max_path_to_bottom(L))
-
-
-if __name__ == "__main__":
-    main()

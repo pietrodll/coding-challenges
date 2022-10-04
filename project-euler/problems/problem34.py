@@ -56,7 +56,3 @@ def find_result():
 
 def main():
     print(find_result())
-
-
-if __name__ == "__main__":
-    main()

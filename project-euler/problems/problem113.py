@@ -41,7 +41,3 @@ def count_non_bouncy(n_digit):
 def run():
     result = count_non_bouncy(100)
     print(result)
-
-
-if __name__ == "__main__":
-    run()

@@ -59,7 +59,3 @@ def main():
             print("Password:", possible_pwd)
             print(decrypted)
             print("Result:", sum_ascii_values(decrypted))
-
-
-if __name__ == "__main__":
-    main()

@@ -37,7 +37,7 @@ def ordered_permutations():
     return perms
 
 
-if __name__ == "__main__":
+def main():
     assert len(permutations(5)) == factorial(5)
     assert digits_to_number([1, 2, 3]) == 123
     assert digits_to_number([0, 3, 2]) == 32

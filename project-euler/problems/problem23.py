@@ -51,7 +51,7 @@ def find_non_abundant_sums():
     return set(range(1, 28123)) - sums
 
 
-if __name__ == "__main__":
+def main():
     assert is_abundant(12)
     assert 12 in find_abundant(15)
 

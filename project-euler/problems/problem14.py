@@ -3,6 +3,7 @@ Problem 14
 ==========
 """
 
+
 def collatz_sequence(n):
     u = n
     c = 1
@@ -71,7 +72,3 @@ def main():
     print(l2)
 
     print(longest_collatz(1000000))
-
-
-if __name__ == "__main__":
-    main()

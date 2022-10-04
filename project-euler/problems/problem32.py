@@ -92,7 +92,3 @@ def find_all_products():
 
 def main():
     print(sum(find_all_products()))
-
-
-if __name__ == "__main__":
-    main()

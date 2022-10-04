@@ -53,7 +53,7 @@ def find_proportion(prop):
     n_bouncy = 0
     n = 1
     while proportion < prop:
-        print(n, end='\r')
+        print(n, end="\r")
         if is_bouncy(n):
             n_bouncy += 1
         proportion = n_bouncy / n
@@ -62,8 +62,5 @@ def find_proportion(prop):
     return n - 1
 
 
-def run():
+def main():
     print(find_proportion(0.99))
-
-if __name__ == "__main__":
-    run()

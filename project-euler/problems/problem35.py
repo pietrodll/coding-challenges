@@ -39,7 +39,3 @@ def count_circular_primes_below(n: int):
 
 def main():
     print(count_circular_primes_below(1000000))
-
-
-if __name__ == "__main__":
-    main()

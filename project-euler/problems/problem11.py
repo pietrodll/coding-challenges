@@ -6,7 +6,7 @@ Problem 11
 import numpy as np
 
 
-GRID = '''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+GRID = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
 52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91
@@ -25,14 +25,14 @@ GRID = '''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36
 20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
-01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48'''
+01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
 
 def grid_to_matrix(grid):
-    lines = grid.split('\n')
+    lines = grid.split("\n")
 
     for i, line in range(len(lines)):
-        line = line.split(' ')
+        line = line.split(" ")
         lines[i] = [int(x) for x in line]
 
     return np.array(lines)
@@ -53,6 +53,7 @@ def max_list_prod(L):
             nums = (L[i], L[i + 1], L[i + 2], L[i + 3])
 
     return m_prod, nums
+
 
 def max_line_prod(matrix, i):
     line = matrix[i]
@@ -91,7 +92,7 @@ def max_up_diag_prod(matrix, i, j):
 
 
 def max_prod(prod_list):
-    m = float('-inf')
+    m = float("-inf")
     nums = None
 
     for prod in prod_list:
@@ -109,7 +110,7 @@ def max_grid_prod(matrix):
     L[1] = max_prod(max_col_prod(matrix, j) for j in range(n))
     L[2] = max_prod(max_down_diag_prod(matrix, 0, j) for j in range(n))
     L[3] = max_prod(max_down_diag_prod(matrix, i, 0) for i in range(n))
-    L[4] = max_prod(max_up_diag_prod(matrix, n-1, j) for j in range(n))
+    L[4] = max_prod(max_up_diag_prod(matrix, n - 1, j) for j in range(n))
     L[5] = max_prod(max_up_diag_prod(matrix, i, 0) for i in range(n))
 
     return max_prod(L)
@@ -120,7 +121,3 @@ def main():
     m_prod = max_grid_prod(matrix)
 
     print(m_prod)
-
-
-if __name__ == "__main__":
-    main()

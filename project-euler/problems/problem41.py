@@ -20,11 +20,7 @@ def main():
         for perm in iter_permutations(range(1, n + 1)):
             x = digits_to_num(perm)
 
-            if  x > largest and is_prime(x):
+            if x > largest and is_prime(x):
                 largest = x
 
     print(largest)
-
-
-if __name__ == "__main__":
-    main()

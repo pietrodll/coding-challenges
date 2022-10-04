@@ -16,16 +16,46 @@ numbers is in compliance with British usage.
 import re
 
 
-ONES = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
-        'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen',
-        'eighteen', 'nineteen']
-TENS = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
-HUNDRED = 'hundred'
-THOUSAND = 'thousand'
+ONES = [
+    "",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+]
+TENS = [
+    "",
+    "ten",
+    "twenty",
+    "thirty",
+    "forty",
+    "fifty",
+    "sixty",
+    "seventy",
+    "eighty",
+    "ninety",
+]
+HUNDRED = "hundred"
+THOUSAND = "thousand"
 
 
 def write_in_letters(n):
-    text = ''
+    text = ""
     m = n % 100
 
     if m < 20:
@@ -35,35 +65,35 @@ def write_in_letters(n):
         text = TENS[m // 10]
 
         if m % 10 > 0:
-            text += f'-{ONES[m % 10]}'
+            text += f"-{ONES[m % 10]}"
 
     n //= 100
 
     if n > 0 and n % 10 > 0:
-        if text != '':
-            text = f'{ONES[n % 10]} {HUNDRED} and {text}'
+        if text != "":
+            text = f"{ONES[n % 10]} {HUNDRED} and {text}"
 
         else:
-            text = f'{ONES[n % 10]} {HUNDRED}'
+            text = f"{ONES[n % 10]} {HUNDRED}"
 
     n //= 10
 
     if n > 0:
-        text = f'{ONES[n]} {THOUSAND} {text}'
+        text = f"{ONES[n]} {THOUSAND} {text}"
 
     return text
 
 
 def count_letters(n):
     text = write_in_letters(n)
-    return len(re.sub(r'[\s\-]', '', text))
+    return len(re.sub(r"[\s\-]", "", text))
 
 
 def sum_count_letters(start, end):
     return sum(map(count_letters, range(start, end + 1)), 0)
 
 
-if __name__ == "__main__":
+def main():
     assert count_letters(342) == 23
     assert count_letters(115) == 20
     assert sum_count_letters(1, 5) == 19

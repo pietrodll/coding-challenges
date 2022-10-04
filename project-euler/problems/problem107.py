@@ -9,12 +9,12 @@ from utils.priority_queue import Node, PriorityQueue
 def load_matrix(filename):
     M = []
 
-    with open(filename, 'r') as f:
+    with open(filename, "r") as f:
         for line in f:
             L = []
 
-            for c in line.split(','):
-                if c not in ('-', '-\n'):
+            for c in line.split(","):
+                if c not in ("-", "-\n"):
                     L.append(int(c))
 
                 else:
@@ -40,7 +40,7 @@ def matrix_to_graph(M):
 
 def prim(G, s):
     n = len(G)
-    d = [float('inf')] * n
+    d = [float("inf")] * n
     d[s] = 0
     p = list(range(n))
     H = {}
@@ -103,11 +103,10 @@ def main():
         [16, 0, 0, 17, 20, 0, 0],
         [12, 0, 0, 28, 0, 31, 0],
         [21, 17, 28, 0, 18, 19, 23],
-        [0,	20,	0, 18, 0, 0, 11],
+        [0, 20, 0, 18, 0, 0, 11],
         [0, 0, 31, 19, 0, 0, 27],
-        [0, 0, 0, 23, 11, 27, 0]
+        [0, 0, 0, 23, 11, 27, 0],
     ]
-
 
     # M = load_matrix('data/p107_network.txt')
 
@@ -117,7 +116,3 @@ def main():
     print(E)
     print(total_weight(G))
     print(max_saving(M))
-
-
-if __name__ == "__main__":
-    main()

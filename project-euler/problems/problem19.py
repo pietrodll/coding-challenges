@@ -62,7 +62,9 @@ def count_sundays_first_in_years(start, end, day_of_jan_first):
 
 
 def weekday_delay(base_year, weekday, target_year):
-    delay = sum((366 if is_leap(year) else 365) for year in range(base_year, target_year))
+    delay = sum(
+        (366 if is_leap(year) else 365) for year in range(base_year, target_year)
+    )
 
     return (weekday + delay) % 7
 
@@ -73,7 +75,7 @@ def sunday_count_19th_cent():
     return count_sundays_first_in_years(1901, 2000, first_day_1901)
 
 
-if __name__ == "__main__":
+def main():
     assert not is_leap(1900)
     assert is_leap(2000)
 

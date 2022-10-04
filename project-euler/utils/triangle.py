@@ -5,7 +5,7 @@ from math import sqrt
 
 
 def line_from_index(i):
-    return int((sqrt(8*i + 1) - 1) / 2)
+    return int((sqrt(8 * i + 1) - 1) / 2)
 
 
 def left_child(i):

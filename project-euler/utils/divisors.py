@@ -18,8 +18,8 @@ def get_primes(N, verbose=0):
     while i < N:
         j = 2
 
-        while j*i < N:
-            primes[j*i] = False
+        while j * i < N:
+            primes[j * i] = False
             j += 1
 
         i += 1
@@ -76,7 +76,7 @@ def mult_ord(a, n):
     """
 
     if n == 1:
-        raise ValueError('The modulo cannot be equal to 1')
+        raise ValueError("The modulo cannot be equal to 1")
 
     m_ord = 1
     value = a % n
@@ -88,7 +88,9 @@ def mult_ord(a, n):
     if m_ord < n:
         return m_ord
 
-    raise ValueError(f'The given integer arguments are not relative primes: {a} and {n}')
+    raise ValueError(
+        f"The given integer arguments are not relative primes: {a} and {n}"
+    )
 
 
 def prime_decomposition(N, primes=None):

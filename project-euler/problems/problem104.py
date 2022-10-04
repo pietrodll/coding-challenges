@@ -27,7 +27,7 @@ def is_pandigital_first(N):
     if power < 9:
         return False
 
-    n = N // 10**(power - 9)
+    n = N // 10 ** (power - 9)
 
     for _ in range(9):
         digits.discard(n % 10)
@@ -45,4 +45,6 @@ def find_number():
         k += 1
     return k
 
-print(find_number())
+
+def main():
+    print(find_number())

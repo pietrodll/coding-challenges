@@ -13,6 +13,7 @@ If dn represents the nth digit of the fractional part, find the value of the fol
 d1 × d10 × d100 × d1000 × d10000 × d100000 × d1000000
 """
 
+
 def iter_digits(n):
     """Gives the digits of n as an iterator"""
 
@@ -59,12 +60,8 @@ def mutiply_values(iterable, indexes):
 
 
 def main():
-    indexes = [10**i - 1 for i in range(7)]
+    indexes = [10 ** i - 1 for i in range(7)]
 
     result = mutiply_values(digit_sequence(1000000), indexes)
 
     print(result)
-
-
-if __name__ == "__main__":
-    main()

@@ -43,14 +43,14 @@ def gauss(A0, Y0):
             swap_lines(Y, i, j)
 
         # transvections
-        for j in range(i+1, n):
+        for j in range(i + 1, n):
             mu = A[i][j] / A[i][i]
             transvection(A, i, j, mu)
             transvection(Y, i, j, mu)
 
     # compute the solution
     X = [0] * n
-    for i in range(n-1, -1, -1):
-        X[i] = 1 / A[i][i] * (Y[i][0] - sum([A[i][j] * X[j] for j in range(j+1, n)]))
+    for i in range(n - 1, -1, -1):
+        X[i] = 1 / A[i][i] * (Y[i][0] - sum([A[i][j] * X[j] for j in range(j + 1, n)]))
 
     return X

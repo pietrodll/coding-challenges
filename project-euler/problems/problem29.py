@@ -36,7 +36,7 @@ def distinct_powers(N):
     return decompositions
 
 
-if __name__ == "__main__":
+def main():
     assert tuple(prime_decomposition(2)) == (1,)
     assert tuple(prime_decomposition(10)) == (1, 0, 1, 0)
 

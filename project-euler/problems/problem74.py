@@ -76,7 +76,3 @@ def main():
             loops_with_length_60.append(i)
 
     print(len(loops_with_length_60))
-
-
-if __name__ == "__main__":
-    main()

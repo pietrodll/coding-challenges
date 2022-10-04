@@ -3,12 +3,13 @@ Problem 102
 ===========
 """
 
+
 def load_triangles(filename):
     L = []
 
-    with open(filename, 'r') as f:
+    with open(filename, "r") as f:
         for line in f:
-            coords = line.split(',')
+            coords = line.split(",")
             tri = [(int(coords[2 * i]), int(coords[2 * i + 1])) for i in range(3)]
             L.append(tri)
 
@@ -45,10 +46,6 @@ def count(L):
 
 
 def main():
-    L = load_triangles('data/p102_triangles.txt')
+    L = load_triangles("data/p102_triangles.txt")
 
     print(count(L))
-
-
-if __name__ == "__main__":
-    main()
