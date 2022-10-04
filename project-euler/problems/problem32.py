@@ -23,6 +23,8 @@ HINT: Some products can be obtained in more than one way so be sure to only incl
 
 from typing import Generator, List, Set, Tuple
 
+from utils.digits import digits_to_num
+
 
 def generate_combinations(
     digits: Set[int], size: int
@@ -38,22 +40,11 @@ def generate_combinations(
             yield [first_digit] + rest
 
 
-def compute_number(digits: List[int]) -> int:
-    result = 0
-    pow_of_ten = 1
-
-    for digit in reversed(digits):
-        result += digit * pow_of_ten
-        pow_of_ten *= 10
-
-    return result
-
-
 def generate_numbers_with_digits(
     num_digits: int,
 ) -> Generator[Tuple[int, Set[int]], None, None]:
     for comb in generate_combinations(set(range(1, 10)), num_digits):
-        yield compute_number(comb), set(comb)
+        yield digits_to_num(comb, reverse=True), set(comb)
 
 
 def iter_potential_products_with_digits():
@@ -68,7 +59,7 @@ def is_product_of_numbers_with_digits(product: int, available_digits: Set[int]) 
     """
     for size in (1, 2, 3):
         for first_digits in generate_combinations(available_digits, size):
-            first = compute_number(first_digits)
+            first = digits_to_num(first_digits, reverse=True)
 
             if product % first == 0:
                 second = product // first
@@ -76,7 +67,7 @@ def is_product_of_numbers_with_digits(product: int, available_digits: Set[int]) 
                 second_size = len(available_digits) - size
 
                 if any(
-                    second == compute_number(second_digits)
+                    second == digits_to_num(second_digits, reverse=True)
                     for second_digits in generate_combinations(
                         possible_second_digits, second_size
                     )
