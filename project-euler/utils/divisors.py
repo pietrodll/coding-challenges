@@ -1,6 +1,7 @@
 """This module contains utility functions for divisors and prime numbers"""
 
 from math import sqrt
+from typing import List, Tuple
 
 
 def is_prime(n):
@@ -11,7 +12,7 @@ def is_prime(n):
     return True
 
 
-def get_primes(N, verbose=0):
+def get_primes(N: int) -> Tuple[List[bool], List[int]]:
     primes = [False] * 2 + [True] * (N - 2)
 
     i = 2
@@ -28,13 +29,6 @@ def get_primes(N, verbose=0):
             i += 1
 
     prime_list = [i for i in range(N) if primes[i]]
-
-    if verbose == 1:
-        print(prime_list)
-
-    elif verbose == 2:
-        print(prime_list)
-        print(primes)
 
     return primes, prime_list
 

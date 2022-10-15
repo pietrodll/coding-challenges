@@ -15,38 +15,30 @@ It can be seen that there are 21 elements in this set.
 How many elements would be contained in the set of reduced proper fractions for d ≤ 1,000,000?
 """
 
+# The number of reduced fractions with denominator d is the number of integers up to d that are
+# relatively prime to d. This is given by Euler's phi function.
+# Therefore, the result is the sum of the values of the phi function from 2 to 1,000,000
 
-def hcf(a, b):
-    """Computes the highest common factor of two numbers"""
-
-    if a < b:
-        a, b = b, a
-
-    while b > 0:
-        r = a % b
-        a = b
-        b = r
-    return a
+from typing import List
 
 
-def count_fractions(N):
+def euler_phi_values(N: int) -> List[int]:
+    phi = list(range(N + 1))
+
+    for i in range(2, N + 1):
+        if phi[i] == i:
+            for j in range(i, N + 1, i):
+                phi[j] = (phi[j] // i) * (i - 1)
+
+    return phi
+
+
+def count_fractions(N: int) -> int:
     """Computes the number of reduced proper fractions with a denominator less or equal than N"""
 
-    num = 0
-    for d in range(1, N + 1):
-        print(d, end="\r")
-        for n in range(1, d):
-            if hcf(n, d) == 1:
-                num += 1
-    return num
-
-
-def test():
-    print("hcf(10, 8) =", hcf(10, 8))
-    print("hcf(25, 15) =", hcf(25, 15))
-    print("hcf(25, 12) =", hcf(25, 12))
-    print("count_fractions(8) =", count_fractions(8))
+    # We exclude phi[1] = 1
+    return sum(euler_phi_values(N)) - 1
 
 
 def main():
-    print(count_fractions(10000))
+    print(count_fractions(1_000_000))

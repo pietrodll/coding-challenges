@@ -3,7 +3,7 @@ Problem 82
 ==========
 """
 
-from utils.priority_queue import PriorityQueue, Node
+from utils.priority_queue import PriorityQueue
 
 
 def load_matrix(filename):
@@ -21,13 +21,18 @@ def get_children(i, j, n):
     if i == 0:
         if j == n - 1:
             return [(i + 1, j)]
+
         return [(i + 1, j), (i, j + 1)]
+
     if i == n - 1:
         if j == n - 1:
             return [(i - 1, j)]
+
         return [(i, j + 1), (i - 1, j)]
+
     if j == n - 1:
         return [(i - 1, j), (i + 1, j)]
+
     return [(i, j + 1), (i - 1, j), (i + 1, j)]
 
 
@@ -38,41 +43,48 @@ def tab_index(i, j, n):
 def matrix_to_graph(M):
     n = len(M)
     G = []
+
     for i in range(n):
         for j in range(n):
             children = []
+
             for (a, b) in get_children(i, j, n):
                 children.append((tab_index(a, b, n), M[a][b]))
+
             G.append(children)
+
     return G
 
 
-def distance_to_nodes(G, s):
-    n = len(G)
-    D = [float("inf")] * n
-    D[s] = 0
-    H = []
-    F = PriorityQueue()
-    F.insert(Node(s, 0))
+def distance_to_node(G, s):
+    dist = [float("inf")] * len(G)
+    dist[s] = 0
 
-    while not F.empty():
-        U = F.pop()
+    visited = set()
 
-        for v in G[U.index]:
-            V = Node(v[0], v[1])
+    queue = PriorityQueue(prio_func=lambda x: dist[x])
+    queue.insert(s)
 
-            if V not in F and V not in H:
-                F.insert(V)
+    while not queue.empty():
+        u = queue.pop()
 
-            D[V.index] = min(D[V.index], D[U.index] + V.value)
+        for v, w in G[u]:
+            if v not in queue and v not in visited:
+                queue.insert(v)
 
-        H.append(U)
+            if dist[v] > dist[u] + w:
+                dist[v] = dist[u] + w
 
-    return D
+                if v in queue:
+                    queue.decrease_priority(v)
+
+        visited.add(u)
+
+    return dist
 
 
 def distance_to_last_col(G, s, n):
-    D = distance_to_nodes(G, s)
+    D = distance_to_node(G, s)
     return min([D[tab_index(i, n - 1, n)] for i in range(n)])
 
 

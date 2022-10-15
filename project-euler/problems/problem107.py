@@ -3,13 +3,16 @@ Problem 107
 ===========
 """
 
-from utils.priority_queue import Node, PriorityQueue
+from typing import List, Tuple
+from utils.priority_queue import PriorityQueue
 
 
-def load_matrix(filename):
-    M = []
+def load_matrix(filename: str) -> List[List[int]]:
+    """Loads a matrix from a text file with the format used in the problem"""
 
     with open(filename, "r") as f:
+        M = []
+
         for line in f:
             L = []
 
@@ -18,101 +21,101 @@ def load_matrix(filename):
                     L.append(int(c))
 
                 else:
-                    L.append(0)
+                    L.append(None)
 
             M.append(L)
 
         return M
 
 
-def matrix_to_graph(M):
-    G = []
+def matrix_to_graph(M: List[List[int]]) -> List[List[Tuple[int, int]]]:
+    graph = []
 
     for line in M:
         neighbors = []
 
         for i, x in enumerate(line):
-            if x != 0:
+            if x is not None:
                 neighbors.append((i, x))
-        G.append(neighbors)
-    return G
+
+        graph.append(neighbors)
+
+    return graph
 
 
-def prim(G, s):
-    n = len(G)
-    d = [float("inf")] * n
-    d[s] = 0
-    p = list(range(n))
-    H = {}
-    F = PriorityQueue()
-    F.insert(Node(s, d[s]))
-    E = []
+def min_spanning_tree(
+    graph: List[List[Tuple[int, int]]], start: int
+) -> List[Tuple[int, int]]:
+    n = len(graph)
 
-    for _ in range(n):
-        U = F.pop()
+    cost = [float("inf")] * n
+    cost[start] = 0
 
-        if U.value != s:
-            E.append((U.value, p[U.value]))
+    parent = list(range(n))
+    finished = set()
+    queue = PriorityQueue(prio_func=lambda x: cost[x])
+    queue.insert(start)
+    edges = []
 
-        for v, w in G[U.value]:
-            V = Node(v, w)
+    while not queue.empty():
+        u = queue.pop()
 
-            if V not in F and v not in H:
-                if d[v] > w:
-                    d[v] = w
-                    V.priority = w
-                    p[v] = U.value
+        if u != start:
+            edges.append((u, parent[u]))
 
-                F.insert(V)
+        for v, w in graph[u]:
+            if v not in queue and v not in finished:
+                queue.insert(v)
 
-            elif d[v] > w:
-                d[v] = w
-                V.priority = w
-                p[v] = U.value
+            if cost[v] > w:
+                cost[v] = w
+                parent[v] = u
 
-        H[U.value] = True
+                if v in queue:
+                    queue.decrease_priority(v)
 
-    return E
+        finished.add(u)
+
+    return edges
 
 
-def total_weight(G):
+def graph_weight(graph: List[List[Tuple[int, int]]]) -> int:
+    """Computes the total weight of a graph"""
     W = 0
 
-    for x in G:
-        for (_, w) in x:
+    for x in graph:
+        for _, w in x:
             W += w
 
     return W // 2
 
 
-def max_saving(M):
-    G = matrix_to_graph(M)
-    W = total_weight(G)
-    E = prim(G, 0)
-    w = 0
+def edges_weight(matrix: List[List[int]], edges: List[Tuple[int, int]]) -> int:
+    return sum(matrix[i][j] for i, j in edges)
 
-    for (i, j) in E:
-        w += M[i][j]
 
-    return W - w
+def max_saving(matrix: List[List[int]]):
+    """Computes the maximum possible saving achievable by removing redundant edges"""
+
+    G = matrix_to_graph(matrix)
+    max_weight = graph_weight(G)
+    E = min_spanning_tree(G, 0)
+    min_weight = edges_weight(matrix, E)
+
+    return max_weight - min_weight
 
 
 def main():
-    M = [
-        [0, 16, 12, 21, 0, 0, 0],
-        [16, 0, 0, 17, 20, 0, 0],
-        [12, 0, 0, 28, 0, 31, 0],
-        [21, 17, 28, 0, 18, 19, 23],
-        [0, 20, 0, 18, 0, 0, 11],
-        [0, 0, 31, 19, 0, 0, 27],
-        [0, 0, 0, 23, 11, 27, 0],
-    ]
+    # M = [
+    #     [None, 16, 12, 21, None, None, None],
+    #     [16, None, None, 17, 20, None, None],
+    #     [12, None, None, 28, None, 31, None],
+    #     [21, 17, 28, None, 18, 19, 23],
+    #     [None, 20, None, 18, None, None, 11],
+    #     [None, None, 31, 19, None, None, 27],
+    #     [None, None, None, 23, 11, 27, None],
+    # ]
 
-    # M = load_matrix('data/p107_network.txt')
+    M = load_matrix("data/p107_network.txt")
 
-    G = matrix_to_graph(M)
-    E = prim(G, 0)
-    print(G)
-    print(E)
-    print(total_weight(G))
     print(max_saving(M))
