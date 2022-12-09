@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  aoc2022:
+    build:
+      context: ./advent-of-code-2022
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - .:/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
