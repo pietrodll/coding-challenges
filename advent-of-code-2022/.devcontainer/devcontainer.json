@@ -2,7 +2,6 @@
     "name": "Advent of Code 2022",
     "dockerComposeFile": ["../../docker-compose.dev.yaml"],
     "service": "aoc2022",
-    "shutdownAction": "none",
     "workspaceFolder": "/workspace/advent-of-code-2022",
     "customizations": {
         "vscode": {
