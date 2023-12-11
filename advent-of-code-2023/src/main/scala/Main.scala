@@ -1,6 +1,6 @@
-import days.{Day, Day1}
+import days.{Day, Day1, Day2}
 
-def allDays = List(Day1())
+def allDays = List(Day1(), Day2())
 
 def runDay(day: Day): Unit =
   println(s"Running day ${day.number}")
