@@ -14,7 +14,8 @@
                 "ms-azuretools.vscode-docker",
                 "eamodio.gitlens",
                 "foxundermoon.shell-format",
-                "scala-lang.scala"
+                "scala-lang.scala",
+                "scalameta.metals"
             ]
         }
     }
