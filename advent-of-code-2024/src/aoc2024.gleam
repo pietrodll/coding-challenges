@@ -1,10 +1,11 @@
 import day1
+import day2
 import gleam/list
 import utils
 
 const days_functions: List(
   fn(String) -> Result(utils.AdventOfCodeResult, String),
-) = [day1.run]
+) = [day1.run, day2.run]
 
 pub fn main() {
   days_functions
