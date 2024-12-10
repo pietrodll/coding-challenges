@@ -15,14 +15,8 @@ fn split_line(line: String) -> Result(#(String, String), String) {
 
 fn parse_line(line: String) -> Result(#(Int, Int), String) {
   use #(left, right) <- result.try(split_line(line))
-  use left_int <- result.try(
-    int.parse(left)
-    |> result.replace_error("error parsing int " <> left),
-  )
-  use right_int <- result.try(
-    int.parse(right)
-    |> result.replace_error("error parsing int " <> right),
-  )
+  use left_int <- result.try(utils.parse_int(left))
+  use right_int <- result.try(utils.parse_int(right))
   Ok(#(left_int, right_int))
 }
 

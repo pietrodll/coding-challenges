@@ -9,9 +9,7 @@ fn parse_line(line: String) -> Result(List(Int), String) {
   line
   |> string.trim
   |> string.split(on: " ")
-  |> list.try_map(fn(item) {
-    int.parse(item) |> result.replace_error("error while parsing " <> item)
-  })
+  |> list.try_map(utils.parse_int)
 }
 
 pub fn parse_input(input: String) -> Result(List(List(Int)), String) {

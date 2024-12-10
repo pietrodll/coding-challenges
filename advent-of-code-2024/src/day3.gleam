@@ -24,14 +24,8 @@ pub fn extract_operations(input: String) -> Result(List(Operation), String) {
       "mul(" <> _ -> {
         case match.submatches {
           [option.Some(left_str), option.Some(right_str)] -> {
-            use left <- result.try(
-              int.parse(left_str)
-              |> result.replace_error("cannot parse integer " <> left_str),
-            )
-            use right <- result.try(
-              int.parse(right_str)
-              |> result.replace_error("cannot parse integer " <> left_str),
-            )
+            use left <- result.try(utils.parse_int(left_str))
+            use right <- result.try(utils.parse_int(right_str))
             Ok(Mul(left, right))
           }
           _ -> Error("invalid multiplication " <> string.inspect(match))
