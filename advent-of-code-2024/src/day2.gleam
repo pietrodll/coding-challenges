@@ -1,6 +1,7 @@
 import gleam/int
 import gleam/list
 import gleam/option
+import gleam/pair
 import gleam/result
 import gleam/string
 import utils
@@ -27,7 +28,7 @@ fn compute_diffs(report: List(Int)) -> List(Int) {
       |> list.map_fold(from: first, with: fn(previous, item) {
         #(item, item - previous)
       })
-      |> fn(tup) { tup.1 }
+      |> pair.second
   }
 }
 

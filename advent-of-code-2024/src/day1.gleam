@@ -25,11 +25,7 @@ pub fn parse_input(content: String) -> Result(#(List(Int), List(Int)), String) {
   |> string.trim
   |> string.split(on: "\n")
   |> list.try_map(parse_line)
-  |> result.map(list.fold_right(
-    _,
-    #([], []),
-    fn(acc, curr) { #([curr.0, ..acc.0], [curr.1, ..acc.1]) },
-  ))
+  |> result.map(list.unzip)
 }
 
 pub fn compute_distance(left: List(Int), right: List(Int)) -> Int {

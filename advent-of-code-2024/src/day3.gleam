@@ -1,6 +1,7 @@
 import gleam/int
 import gleam/list
 import gleam/option
+import gleam/pair
 import gleam/regexp
 import gleam/result
 import gleam/string
@@ -64,7 +65,7 @@ pub fn compute_result_including_dos(operations: List(Operation)) -> Int {
       DoNot -> #(False, result)
     }
   })
-  |> fn(tup) { tup.1 }
+  |> pair.second
 }
 
 pub fn run(input: String) -> Result(utils.AdventOfCodeResult, String) {
