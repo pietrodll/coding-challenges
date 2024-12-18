@@ -62,5 +62,6 @@ pub fn remove_index(list: List(a), index: Int) -> List(a) {
 }
 
 pub fn parse_int(string: String) -> Result(Int, String) {
-  int.parse(string) |> result.replace_error("error parsing int " <> string)
+  int.parse(string)
+  |> result.replace_error("error parsing int \"" <> string <> "\"")
 }
