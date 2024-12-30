@@ -49,16 +49,27 @@ pub fn index_fold_until(
   |> fn(tup) { tup.0 }
 }
 
-pub fn remove_index(list: List(a), index: Int) -> List(a) {
+fn append_reverse(target: List(a), source: List(a)) -> List(a) {
+  case source {
+    [] -> target
+    [first, ..rest] -> append_reverse([first, ..target], rest)
+  }
+}
+
+fn remove_index_rec(acc: List(a), list: List(a), index: Int) -> List(a) {
   case list {
-    [] -> []
+    [] -> acc
     [first, ..rest] -> {
       case index {
-        0 -> rest
-        _ -> [first, ..remove_index(rest, index - 1)]
+        0 -> append_reverse(acc, rest)
+        _ -> remove_index_rec([first, ..acc], rest, index - 1)
       }
     }
   }
+}
+
+pub fn remove_index(list: List(a), index: Int) -> List(a) {
+  remove_index_rec([], list, index) |> list.reverse
 }
 
 pub fn parse_int(string: String) -> Result(Int, String) {
