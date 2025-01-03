@@ -1,4 +1,5 @@
 import day1
+import day10
 import day2
 import day3
 import day4
@@ -14,7 +15,7 @@ const days_functions: List(
   fn(String) -> Result(utils.AdventOfCodeResult, String),
 ) = [
   day1.run, day2.run, day3.run, day4.run, day5.run, day6.run, day7.run, day8.run,
-  day9.run,
+  day9.run, day10.run,
 ]
 
 pub fn main() {
