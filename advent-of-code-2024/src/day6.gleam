@@ -73,11 +73,11 @@ pub fn parse_input(
       )
     })
 
-  use guard <- result.try(
+  use guard <- result.map(
     maybe_guard |> option.to_result("guard position not found"),
   )
 
-  Ok(#(#(height, length), guard, set.from_list(obstacles)))
+  #(#(height, length), guard, set.from_list(obstacles))
 }
 
 fn turn_right(direction: GuardDirection) -> GuardDirection {
@@ -160,9 +160,9 @@ pub fn count_guard_positions(
 }
 
 pub fn run(input: String) -> Result(utils.AdventOfCodeResult, String) {
-  use #(grid_size, guard, obstacles) <- result.try(parse_input(input))
+  use #(grid_size, guard, obstacles) <- result.map(parse_input(input))
 
   let seen_positions = count_guard_positions(grid_size, guard, obstacles)
 
-  Ok(utils.AdventOfCodeResult(int.to_string(seen_positions), ""))
+  utils.AdventOfCodeResult(int.to_string(seen_positions), "")
 }

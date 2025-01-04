@@ -137,13 +137,13 @@ pub fn count_x_mas(matrix: LetterMatrix) -> Int {
 }
 
 pub fn run(input: String) -> Result(utils.AdventOfCodeResult, String) {
-  use letter_matrix <- result.try(parse_input(input))
+  use letter_matrix <- result.map(parse_input(input))
 
   let first_part = count_xmas(letter_matrix)
   let second_part = count_x_mas(letter_matrix)
 
-  Ok(utils.AdventOfCodeResult(
+  utils.AdventOfCodeResult(
     int.to_string(first_part),
     int.to_string(second_part),
-  ))
+  )
 }

@@ -69,13 +69,13 @@ pub fn compute_result_including_dos(operations: List(Operation)) -> Int {
 }
 
 pub fn run(input: String) -> Result(utils.AdventOfCodeResult, String) {
-  use operations <- result.try(extract_operations(input))
+  use operations <- result.map(extract_operations(input))
 
   let first_part = compute_result(operations)
   let second_part = compute_result_including_dos(operations)
 
-  Ok(utils.AdventOfCodeResult(
+  utils.AdventOfCodeResult(
     int.to_string(first_part),
     int.to_string(second_part),
-  ))
+  )
 }

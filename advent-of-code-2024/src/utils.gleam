@@ -1,6 +1,8 @@
+import gleam/dict
 import gleam/int
 import gleam/io
 import gleam/list
+import gleam/option
 import gleam/result
 import gleam/string
 import simplifile
@@ -82,4 +84,13 @@ pub fn call_multiple_times(arg: a, func: fn(a) -> a, times: Int) -> a {
     True -> arg
     False -> call_multiple_times(func(arg), func, times - 1)
   }
+}
+
+pub fn counter(list: List(a)) -> dict.Dict(a, Int) {
+  list.fold(list, dict.new(), fn(count, item) {
+    count
+    |> dict.upsert(item, fn(previous_count) {
+      option.unwrap(previous_count, 0) + 1
+    })
+  })
 }

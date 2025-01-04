@@ -8,11 +8,11 @@ fn parse_line(line: String) -> Result(#(Int, List(Int)), String) {
   case line |> string.split(": ") {
     [res_str, values_str] -> {
       use res <- result.try(utils.parse_int(res_str))
-      use values <- result.try(
+      use values <- result.map(
         values_str |> string.split(" ") |> list.try_map(utils.parse_int),
       )
 
-      Ok(#(res, values))
+      #(res, values)
     }
     _ -> Error("could not parse line \"" <> line <> "\"")
   }
@@ -100,13 +100,13 @@ pub fn second_part(equations: List(#(Int, List(Int)))) -> Int {
 }
 
 pub fn run(input: String) -> Result(utils.AdventOfCodeResult, String) {
-  use equations <- result.try(parse_input(input))
+  use equations <- result.map(parse_input(input))
 
   let first_part = first_part(equations)
   let second_part = second_part(equations)
 
-  Ok(utils.AdventOfCodeResult(
+  utils.AdventOfCodeResult(
     int.to_string(first_part),
     int.to_string(second_part),
-  ))
+  )
 }

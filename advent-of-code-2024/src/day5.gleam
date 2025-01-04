@@ -116,11 +116,10 @@ pub fn is_correctly_ordered(
 
 pub fn find_middle_rec(fast: List(a), slow: List(a)) -> option.Option(a) {
   case fast, slow {
-    [], [] -> option.None
+    _, [] -> option.None
     [], [first, ..] -> option.Some(first)
     [_], [first, ..] -> option.Some(first)
     [_, _, ..rest1], [_, ..rest2] -> find_middle_rec(rest1, rest2)
-    _, _ -> option.None
   }
 }
 
@@ -155,14 +154,14 @@ pub fn second_part(
 }
 
 pub fn run(input: String) -> Result(utils.AdventOfCodeResult, String) {
-  use #(ordering_rules, update_pages) <- result.try(parse_input(input))
+  use #(ordering_rules, update_pages) <- result.map(parse_input(input))
   let order_func = generate_order(ordering_rules)
 
   let first_part = first_part(order_func, update_pages)
   let second_part = second_part(order_func, update_pages)
 
-  Ok(utils.AdventOfCodeResult(
+  utils.AdventOfCodeResult(
     int.to_string(first_part),
     int.to_string(second_part),
-  ))
+  )
 }

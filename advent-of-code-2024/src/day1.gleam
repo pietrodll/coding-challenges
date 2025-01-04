@@ -1,7 +1,6 @@
 import gleam/dict
 import gleam/int
 import gleam/list
-import gleam/option
 import gleam/result
 import gleam/string
 import utils
@@ -16,8 +15,8 @@ fn split_line(line: String) -> Result(#(String, String), String) {
 fn parse_line(line: String) -> Result(#(Int, Int), String) {
   use #(left, right) <- result.try(split_line(line))
   use left_int <- result.try(utils.parse_int(left))
-  use right_int <- result.try(utils.parse_int(right))
-  Ok(#(left_int, right_int))
+  use right_int <- result.map(utils.parse_int(right))
+  #(left_int, right_int)
 }
 
 pub fn parse_input(content: String) -> Result(#(List(Int), List(Int)), String) {
@@ -39,15 +38,7 @@ pub fn compute_distance(left: List(Int), right: List(Int)) -> Int {
 }
 
 pub fn compute_similarity(left: List(Int), right: List(Int)) -> Int {
-  let counts =
-    list.fold(right, dict.new(), fn(cts, number) {
-      dict.upsert(cts, number, fn(previous) {
-        case previous {
-          option.None -> 1
-          option.Some(count) -> count + 1
-        }
-      })
-    })
+  let counts = utils.counter(right)
 
   list.fold(left, 0, fn(total, number) {
     total + { number * { dict.get(counts, number) |> result.unwrap(0) } }
