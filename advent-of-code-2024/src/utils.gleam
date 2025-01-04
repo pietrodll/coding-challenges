@@ -76,3 +76,10 @@ pub fn parse_int(string: String) -> Result(Int, String) {
   int.parse(string)
   |> result.replace_error("error parsing int \"" <> string <> "\"")
 }
+
+pub fn call_multiple_times(arg: a, func: fn(a) -> a, times: Int) -> a {
+  case times <= 0 {
+    True -> arg
+    False -> call_multiple_times(func(arg), func, times - 1)
+  }
+}
