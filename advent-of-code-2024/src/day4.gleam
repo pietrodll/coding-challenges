@@ -1,10 +1,10 @@
-import gleam/dict
 import gleam/int
 import gleam/list
 import gleam/option
+import gleam/pair
 import gleam/result
-import gleam/string
 import utils
+import utils_matrix
 
 pub type Letter {
   X
@@ -24,96 +24,61 @@ fn parse_letter(char: String) -> Result(Letter, String) {
 }
 
 pub type LetterMatrix =
-  dict.Dict(Int, dict.Dict(Int, Letter))
-
-fn to_table(list: List(a)) -> dict.Dict(Int, a) {
-  list |> list.index_map(fn(item, index) { #(index, item) }) |> dict.from_list
-}
+  utils_matrix.Matrix(Letter)
 
 pub fn parse_input(input: String) -> Result(LetterMatrix, String) {
-  input
-  |> string.trim
-  |> string.split("\n")
-  |> list.try_map(fn(line) {
-    line
-    |> string.to_graphemes
-    |> list.try_map(parse_letter)
-    |> result.map(to_table)
-  })
-  |> result.map(to_table)
-}
-
-fn matrix_indices(size: Int) -> List(#(Int, Int)) {
-  list.range(0, size - 1)
-  |> list.flat_map(fn(i) {
-    list.range(0, size - 1) |> list.map(fn(j) { #(i, j) })
-  })
-}
-
-fn matrix_get(matrix: LetterMatrix, i: Int, j: Int) -> option.Option(Letter) {
-  matrix
-  |> dict.get(i)
-  |> result.then(fn(line) { line |> dict.get(j) })
-  |> option.from_result
+  utils_matrix.from_text(input, parse_letter)
 }
 
 fn check_xmas(
   matrix: LetterMatrix,
-  i0: Int,
-  j0: Int,
-  direction: #(Int, Int),
+  starting_position: #(Int, Int),
+  direction: utils_matrix.Direction,
 ) -> Bool {
-  let #(delta_i, delta_j) = direction
+  [X, M, A, S]
+  |> list.fold_until(#(True, starting_position), fn(acc, stage) {
+    let #(_, position) = acc
 
-  let #(is_valid, _, _) =
-    [X, M, A, S]
-    |> list.fold_until(#(True, i0, j0), fn(position, stage) {
-      let #(_, i, j) = position
-      matrix_get(matrix, i, j)
-      |> option.map(fn(letter) {
-        case letter == stage {
-          True -> list.Continue(#(True, i + delta_i, j + delta_j))
-          False -> list.Stop(#(False, -1, -1))
-        }
-      })
-      |> option.unwrap(list.Stop(#(False, -1, -1)))
-    })
-
-  is_valid
+    case utils_matrix.get(matrix, position) {
+      option.Some(letter) if letter == stage ->
+        list.Continue(#(True, utils_matrix.next_position(position, direction)))
+      _ -> list.Stop(#(False, #(-1, -1)))
+    }
+  })
+  |> pair.first
 }
 
-fn count_xmas_from(matrix: LetterMatrix, i0: Int, j0: Int) {
-  let directions = [
-    #(1, 0),
-    #(1, 1),
-    #(0, 1),
-    #(-1, 1),
-    #(-1, 0),
-    #(-1, -1),
-    #(0, -1),
-    #(1, -1),
-  ]
+const directions = [
+  utils_matrix.Up,
+  utils_matrix.Down,
+  utils_matrix.Left,
+  utils_matrix.Right,
+  utils_matrix.UpLeft,
+  utils_matrix.UpRight,
+  utils_matrix.DownLeft,
+  utils_matrix.DownRight,
+]
 
+fn count_xmas_from(matrix: LetterMatrix, position: #(Int, Int)) {
   directions
-  |> list.count(fn(direction) { check_xmas(matrix, i0, j0, direction) })
+  |> list.count(check_xmas(matrix, position, _))
 }
 
 pub fn count_xmas(matrix: LetterMatrix) -> Int {
-  let size = dict.size(matrix)
-
-  matrix_indices(size)
-  |> list.map(fn(indices) { count_xmas_from(matrix, indices.0, indices.1) })
-  |> list.fold(0, int.add)
+  utils_matrix.indices(matrix.height, matrix.width)
+  |> list.map(count_xmas_from(matrix, _))
+  |> int.sum
 }
 
-fn is_x_mas(matrix: LetterMatrix, i: Int, j: Int) -> Bool {
+fn is_x_mas(matrix: LetterMatrix, position: #(Int, Int)) -> Bool {
   [
-    matrix_get(matrix, i, j),
-    matrix_get(matrix, i - 1, j - 1),
-    matrix_get(matrix, i - 1, j + 1),
-    matrix_get(matrix, i + 1, j - 1),
-    matrix_get(matrix, i + 1, j + 1),
+    position,
+    utils_matrix.next_position(position, utils_matrix.UpLeft),
+    utils_matrix.next_position(position, utils_matrix.UpRight),
+    utils_matrix.next_position(position, utils_matrix.DownLeft),
+    utils_matrix.next_position(position, utils_matrix.DownRight),
   ]
+  |> list.map(utils_matrix.get(matrix, _))
   |> option.all
   |> option.map(fn(letters) {
     let assert [center, top_left, top_right, bottom_left, bottom_right] =
@@ -132,8 +97,8 @@ fn is_x_mas(matrix: LetterMatrix, i: Int, j: Int) -> Bool {
 }
 
 pub fn count_x_mas(matrix: LetterMatrix) -> Int {
-  matrix_indices(dict.size(matrix))
-  |> list.count(fn(indices) { is_x_mas(matrix, indices.0, indices.1) })
+  utils_matrix.indices(matrix.height, matrix.width)
+  |> list.count(is_x_mas(matrix, _))
 }
 
 pub fn run(input: String) -> Result(utils.AdventOfCodeResult, String) {
