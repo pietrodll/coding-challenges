@@ -38,12 +38,16 @@ pub fn can_be_resolved(test_value: Int, numbers: List(Int)) -> Bool {
   }
 }
 
+/// Concatenates the first number with the reversed second number
+fn concat_reverse_digits(first: Int, second: Int) -> Int {
+  case second {
+    0 -> first
+    _ -> concat_numbers({ first * 10 } + { second % 10 }, second / 10)
+  }
+}
+
 fn concat_numbers(first: Int, second: Int) -> Int {
-  let assert Ok(first_digits) = int.digits(first, 10)
-  let assert Ok(second_digits) = int.digits(second, 10)
-  let assert Ok(result) =
-    int.undigits(list.append(first_digits, second_digits), 10)
-  result
+  concat_reverse_digits(first, concat_reverse_digits(0, second))
 }
 
 fn can_be_resolved_with_concatenation_rec(

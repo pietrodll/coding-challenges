@@ -67,7 +67,7 @@ pub fn generate_order(
   fn(a, b) {
     lower
     |> dict.get(a)
-    |> result.then(fn(values) {
+    |> result.try(fn(values) {
       case values |> set.contains(b) {
         True -> Ok(order.Lt)
         False -> Error(Nil)
@@ -76,7 +76,7 @@ pub fn generate_order(
     |> result.lazy_or(fn() {
       lower
       |> dict.get(b)
-      |> result.then(fn(values) {
+      |> result.try(fn(values) {
         case values |> set.contains(a) {
           True -> Ok(order.Gt)
           False -> Error(Nil)
@@ -86,7 +86,7 @@ pub fn generate_order(
     |> result.lazy_or(fn() {
       greater
       |> dict.get(a)
-      |> result.then(fn(values) {
+      |> result.try(fn(values) {
         case values |> set.contains(b) {
           True -> Ok(order.Gt)
           False -> Error(Nil)
@@ -96,7 +96,7 @@ pub fn generate_order(
     |> result.lazy_or(fn() {
       greater
       |> dict.get(b)
-      |> result.then(fn(values) {
+      |> result.try(fn(values) {
         case values |> set.contains(a) {
           True -> Ok(order.Lt)
           False -> Error(Nil)
