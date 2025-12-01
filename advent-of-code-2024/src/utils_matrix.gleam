@@ -13,6 +13,16 @@ pub fn get(grid: Matrix(a), pos: #(Int, Int)) -> option.Option(a) {
   grid.items |> dict.get(pos) |> option.from_result
 }
 
+pub fn set(grid: Matrix(a), pos: #(Int, Int), value: a) -> Matrix(a) {
+  let #(i, j) = pos
+
+  case 0 <= i && i < grid.height && 0 <= j && j < grid.width {
+    True ->
+      Matrix(grid.items |> dict.insert(pos, value), grid.height, grid.width)
+    False -> grid
+  }
+}
+
 pub fn from_text(
   text: String,
   parse_grapheme: fn(String) -> Result(a, b),
