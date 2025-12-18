@@ -1,0 +1,22 @@
+{
+    "name": "Advent of Code 2025",
+    "dockerComposeFile": ["../../docker-compose.dev.yaml"],
+    "service": "aoc2025",
+    "workspaceFolder": "/workspace/advent-of-code-2025",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "git.path": "/usr/bin/git"
+            },
+            "extensions": [
+                "karyfoundation.comment",
+                "me-dutour-mathieu.vscode-github-actions",
+                "ms-azuretools.vscode-docker",
+                "eamodio.gitlens",
+                "bungcip.better-toml",
+                "foxundermoon.shell-format",
+                "rust-lang.rust-analyzer"
+            ]
+        }
+    }
+}
