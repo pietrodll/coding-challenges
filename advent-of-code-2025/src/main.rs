@@ -1,8 +1,7 @@
-use std::env;
-
 use crate::days::DAYS;
 
 mod days;
+mod utils;
 
 fn read_input(day: i32) -> String {
     std::fs::read_to_string(format!("data/day{day}.txt")).unwrap()
@@ -17,7 +16,7 @@ fn run_day(day: i32, runner: fn(&String) -> days::DayResult) {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let args: Vec<String> = std::env::args().collect();
 
     match args.get(1) {
         Some(day_arg) => match day_arg.parse::<usize>() {
